@@ -135,6 +135,9 @@ st.markdown(
     <div style="text-align:center; font-size:22px; color:{BLUE}; margin-top:15px;">
         Le coach e-sport intelligent qui analyse, comprend et améliore votre gameplay.
     </div>
+    <div style="text-align:center; font-size:18px; color:#FFFFFF; margin-top:8px; font-weight:500;">
+        Comprendre vite, progresser mieux
+    </div>
     """,
     unsafe_allow_html=True
 )
