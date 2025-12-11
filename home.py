@@ -203,40 +203,6 @@ st.markdown("<h2 class='section-title'>Envie d'aller plus loin ?</h2>", unsafe_a
 st.markdown(f"""
 <div style='text-align:center; font-size:1.05rem; margin-bottom: 25px;'>
 La section <b>Notre Offre</b> présente en détail nos analyses IA, 
-les outils d’entraînement et les fonctionnalités avancées de SENSai.
-</div>
-""", unsafe_allow_html=True)
-
-# ------------------------
-# NOUVEAU BOUTON FUTURISTE
-# ------------------------
-
-st.markdown(f"""
-<style>
-.neon-btn {{
-    background: rgba(18, 80, 166, 0.18);
-    color: white !important;
-    padding: 14px 32px;
-    border-radius: 10px;
-    border: 2px solid {BLUE};
-    font-size: 1.1rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.25s ease-in-out;
-    box-shadow: 0 0 12px {BLUE};
-}}
-
-.neon-btn:hover {{
-    background: rgba(18, 80, 166, 0.28);
-    box-shadow: 0 0 18px {BLUE}, 0 0 28px {BLUE};
-    transform: translateY(-3px);
-}}
-</style>
-
-<div style="text-align:center; margin-top:20px;">
-    <a class="neon-btn" href="/pages/1_Notre_offre" target="_self">
-        Voir Notre Offre 
-    </a>
+les outils d'entraînement et les fonctionnalités avancées de SENSai.
 </div>
 """, unsafe_allow_html=True)
