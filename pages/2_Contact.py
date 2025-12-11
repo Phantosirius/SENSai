@@ -81,10 +81,20 @@ input:focus, textarea:focus, select:focus {{
     box-shadow: 0 0 18px {BLUE};
 }}
 
+/* =============================
+   LIGNES NÉON HAUT / BAS
+   ============================= */
+.neon-line {{
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, {BLUE}, transparent);
+    box-shadow: 0 0 12px {BLUE}, 0 0 24px {BLUE};
+    margin: 40px 0;
+}}
 </style>
 """, unsafe_allow_html=True)
 
-
+st.markdown("<div class='neon-line'></div>", unsafe_allow_html=True)
 # -------------------------
 # TITRE
 # -------------------------
@@ -98,6 +108,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+st.markdown("<div class='neon-line'></div>", unsafe_allow_html=True)
 
 # -------------------------
 # FORMULAIRE — CENTRÉ SANS DÉCALAGE

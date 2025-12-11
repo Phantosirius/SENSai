@@ -1085,7 +1085,6 @@ LIMIT 10;"""
             </div>
             """, unsafe_allow_html=True)
 
-
 # ----------------------------------------------------------
 # ONGLETS COACH LEC (scope limité)
 # ----------------------------------------------------------
@@ -1134,53 +1133,76 @@ elif role == "COACH_LEC":
     with tab_lec_players:
         st.markdown('<div class="section-title">ANALYSE PERFORMANCES LEC</div>', unsafe_allow_html=True)
         
-        c1, c2 = st.columns(2)
-
-        with c1:
-            if st.button("STATS CUMULÉES LEC", use_container_width=True):
-                st.markdown('<div class="sensai-panel">', unsafe_allow_html=True)
-                q = """
-                SELECT
-                  j.pseudo,
-                  SUM(s.kills) AS total_kills,
-                  SUM(s.deaths) AS total_deaths,
-                  SUM(s.assists) AS total_assists,
-                  ROUND((SUM(s.kills) + SUM(s.assists)) / NULLIF(SUM(s.deaths), 0), 2) AS kda_ratio
-                FROM stat_joueur s
-                JOIN joueur j ON j.joueur_id = s.joueur_id
-                GROUP BY j.pseudo
-                ORDER BY kda_ratio DESC;
-                """
-                try:
-                    st.dataframe(run_select(q, scope), use_container_width=True)
-                except Exception as e:
-                    st.error(f"Erreur SQL : {e}")
-                st.markdown('</div>', unsafe_allow_html=True)
-
-        with c2:
-            if st.button("HISTORIQUE MATCHS LEC", use_container_width=True):
-                st.markdown('<div class="sensai-panel">', unsafe_allow_html=True)
-                q = """
-                SELECT
-                  m.match_id,
-                  m.date_match,
-                  eb.code AS equipe_bleue,
-                  er.code AS equipe_rouge,
-                  ev.code AS vainqueur,
-                  CASE WHEN m.vainqueur_equipe_id = eb.equipe_id THEN eb.code
-                       WHEN m.vainqueur_equipe_id = er.equipe_id THEN er.code
-                       ELSE 'N/A' END AS resultat
-                FROM match_game m
-                JOIN equipe eb ON eb.equipe_id = m.equipe_bleue_id
-                JOIN equipe er ON er.equipe_id = m.equipe_rouge_id
-                LEFT JOIN equipe ev ON ev.equipe_id = m.vainqueur_equipe_id
-                ORDER BY m.date_match DESC, m.match_id;
-                """
-                try:
-                    st.dataframe(run_select(q, scope), use_container_width=True)
-                except Exception as e:
-                    st.error(f"Erreur SQL : {e}")
-                st.markdown('</div>', unsafe_allow_html=True)
+        # Bouton 1 : Stats cumulées par joueur
+        st.markdown("### STATS CUMULÉES PAR JOUEUR")
+        
+        if st.button("AFFICHER LES STATS CUMULÉES PAR JOUEUR", use_container_width=True, key="btn_stats_cumulees"):
+            st.markdown("**Résultats : Stats cumulées par joueur**")
+            q = """
+            SELECT
+              j.pseudo,
+              j.role,
+              COUNT(s.match_id) AS nb_matchs,
+              SUM(s.kills) AS total_kills,
+              SUM(s.deaths) AS total_deaths,
+              SUM(s.assists) AS total_assists,
+              ROUND((SUM(s.kills) + SUM(s.assists)) / NULLIF(SUM(s.deaths), 0), 2) AS kda_ratio
+            FROM stat_joueur s
+            JOIN joueur j ON j.joueur_id = s.joueur_id
+            GROUP BY j.joueur_id, j.pseudo, j.role
+            ORDER BY kda_ratio DESC;
+            """
+            try:
+                df = run_select(q, scope)
+                if df.empty:
+                    st.warning("⚠️ Aucune statistique trouvée.")
+                    st.info("Essayez cette requête de test dans l'onglet SQL LEC :")
+                    st.code("SELECT * FROM scope_stat_joueur LIMIT 5;")
+                else:
+                    st.dataframe(df, use_container_width=True)
+            except Exception as e:
+                st.error(f"Erreur SQL : {e}")
+        else:
+            st.info("Cliquez sur le bouton ci-dessus pour afficher les stats cumulées par joueur")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Séparateur visuel
+        st.divider()
+        
+        # Bouton 2 : KDA par rôle
+        st.markdown("### KDA PAR RÔLE")
+        
+        if st.button("AFFICHER LE KDA PAR RÔLE", use_container_width=True, key="btn_kda_role"):
+            st.markdown("**Résultats : KDA par rôle**")
+            q_role = """
+            SELECT
+              j.role,
+              COUNT(DISTINCT j.joueur_id) AS nb_joueurs,
+              ROUND(AVG(s.kills), 2) AS avg_kills,
+              ROUND(AVG(s.deaths), 2) AS avg_deaths,
+              ROUND(AVG(s.assists), 2) AS avg_assists,
+              ROUND(
+                (SUM(s.kills) + SUM(s.assists)) / NULLIF(SUM(s.deaths), 0), 
+                2
+              ) AS kda_ratio_role
+            FROM joueur j
+            LEFT JOIN stat_joueur s ON s.joueur_id = j.joueur_id
+            GROUP BY j.role
+            ORDER BY j.role;
+            """
+            try:
+                df_role = run_select(q_role, scope)
+                if df_role.empty:
+                    st.warning("Aucune donnée KDA par rôle disponible")
+                else:
+                    st.dataframe(df_role, use_container_width=True)
+            except Exception as e:
+                st.error(f"Erreur SQL : {e}")
+        else:
+            st.info("Cliquez sur le bouton ci-dessus pour afficher le KDA par rôle")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with tab_lec_sql:
         st.markdown('<div class="section-title">INTERFACE SQL LEC</div>', unsafe_allow_html=True)
@@ -1192,7 +1214,7 @@ elif role == "COACH_LEC":
         </div>
         """, unsafe_allow_html=True)
         
-        default_sql_lec = """-- Exemple : Joueurs LEC avec leurs rôles
+        default_sql_lec = """-- Exemple : Voir les joueurs LEC avec leur rôle
 SELECT pseudo, role, nationalite 
 FROM joueur 
 ORDER BY role, pseudo;"""

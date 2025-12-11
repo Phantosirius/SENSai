@@ -157,6 +157,7 @@ vos forces et vos faiblesses, et génère des axes d’amélioration cohérents 
 """, unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<div class='neon-line'></div>", unsafe_allow_html=True)
 
 # ------------------------
 # SECTION : Ce que SENSai apporte
