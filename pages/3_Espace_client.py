@@ -2,7 +2,6 @@ import os
 import re
 import sqlite3
 from pathlib import Path
-
 import pandas as pd
 import streamlit as st
 
@@ -567,50 +566,514 @@ if role == "ADMIN":
                 st.error(f"Erreur SQL : {e}")
 
     # ================= TAB 6 : CAHIER DES CHARGES =================
+# ================= TAB 6 : CAHIER DES CHARGES =================
     with tab_cdc:
-        st.markdown("### Cahier des charges — Vue data & IA")
+        st.markdown("### CAHIER DES CHARGES SENSAI - PLATEFORME D'INTELLIGENCE ESPORT")
+        
+        # En-tête futuriste
+        st.markdown("""
+        <div style='
+            background: linear-gradient(135deg, rgba(18, 80, 166, 0.1) 0%, rgba(18, 80, 166, 0.05) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(18, 80, 166, 0.2);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        '>
+        <div style='display: flex; justify-content: space-between; align-items: center;'>
+            <div>
+                <h3 style='color: #1250A6; margin: 0 0 5px 0; font-weight: 700;'>SENSAI TECHNOLOGIES</h3>
+                <p style='color: #333; margin: 0; font-size: 0.9em;'>Plateforme d'Intelligence Artificielle pour l'Esport Professionnel</p>
+            </div>
+            <div style='text-align: right;'>
+                <p style='color: #666; margin: 0; font-size: 0.85em;'><strong>Version :</strong> 3.0</p>
+                <p style='color: #666; margin: 0; font-size: 0.85em;'><strong>Date :</strong> Q4 2024</p>
+                <p style='color: #666; margin: 0; font-size: 0.85em;'><strong>Client :</strong> KARMINE CORP</p>
+            </div>
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # 1. CONTEXTE ET OBJECTIFS STRATEGIQUES
+        with st.expander("1. CONTEXTE ET OBJECTIFS STRATEGIQUES", expanded=True):
+            col_ctx1, col_ctx2 = st.columns([2, 1])
+            
+            with col_ctx1:
+                st.markdown("""
+                #### 1.1 Contexte d'Innovation
+                
+                **SensAI** représente la convergence entre l'intelligence artificielle de pointe et l'excellence esportive. 
+                Dans un environnement compétitif où les marges de progression se réduisent, la data devient l'ultime avantage 
+                concurrentiel. La Karmine Corp, organisation pionnière, nécessite une plateforme capable de transformer 
+                des terabytes de données brutes en insights actionnables.
+                
+                **Problématique Identifiée :**
+                - Fragmentation des données de performance
+                - Latence dans l'analyse post-match
+                - Subjectivité dans l'évaluation des joueurs
+                - Difficulté à mesurer le ROI du coaching
+                - Absence de capitalisation des connaissances tactiques
+                """)
+            
+            with col_ctx2:
+                st.markdown("""
+                #### 1.2 Chiffres Clés
+                """)
+                st.markdown("---")
+                st.markdown("""
+                **15** tables de données structurées  
+                **10+** matchs analysés quotidiennement  
+                **50+** indicateurs de performance  
+                **3** modèles IA spécialisés  
+                **24/7** disponibilité requise  
+                **< 100ms** latence maximale
+                """)
+            
+            st.markdown("""
+            #### 1.3 Objectifs Stratégiques
+            
+            | Période | Objectif | Indicateur de Succès |
+            |---------|----------|----------------------|
+            | Court Terme (Q1 2025) | Centralisation complète des données historiques Karmine Corp | 100% des données 2024 intégrées |
+            | Moyen Terme (Q2 2025) | Implémentation des algorithmes prédictifs de performance | Précision >85% sur les résultats matchs |
+            | Long Terme (Q3 2025+) | Commercialisation de la plateforme à d'autres organisations | 3 organisations tierces utilisatrices |
+            
+            #### 1.4 Valeur Ajoutée Quantifiée
+            
+            - **Pour les Joueurs :** Réduction de 40% du temps d'analyse personnelle
+            - **Pour les Coaches :** Augmentation de 30% de l'efficacité des entraînements
+            - **Pour la Direction :** Visibilité temps réel sur les investissements et ROI
+            - **Pour les Analystes :** Automatisation de 70% des rapports standards
+            """)
+        
+        # 2. ARCHITECTURE FONCTIONNELLE
+        with st.expander("2. ARCHITECTURE FONCTIONNELLE", expanded=False):
+            st.markdown("""
+            #### 2.1 Matrice des Fonctionnalités par Module
+            
+            """)
+            
+            # Tableau des fonctionnalités
+            features_data = {
+                "Module": ["CORE ESPORT", "INTELLIGENCE ARTIFICIELLE", "GESTION ADMINISTRATIVE", "ANALYTICS AVANCES"],
+                "Fonctionnalités Principales": [
+                    "Gestion joueurs/équipes, Suivi matchs, Statistiques temps réel",
+                    "Recommandations IA, Modèles prédictifs, NLP pour analyse vocale",
+                    "Contrats et salaires, Gestion staff, Permissions RBAC",
+                    "Dashboards interactifs, Reporting automatisé, API d'export"
+                ],
+                "Complexité": ["Élevée", "Très Élevée", "Moyenne", "Élevée"],
+                "Priorité": ["P0", "P0", "P1", "P1"]
+            }
+            
+            st.dataframe(pd.DataFrame(features_data), use_container_width=True)
+            
+            st.markdown("""
+            #### 2.2 Flux de Données Critique
+            
+            **Match Data Pipeline :**
+            1. Capture données via Riot Games API
+            2. Validation et nettoyage automatique
+            3. Stockage dans la base transactionnelle
+            4. Processing par les modèles IA
+            5. Génération de recommandations
+            6. Notification aux staff concernés
+            7. Tracking des interactions et feedback
+            
+            #### 2.3 Sécurité et Conformité
+            
+            - **RBAC (Role-Based Access Control) :** 5 niveaux de permissions
+            - **Chiffrement :** AES-256 pour les données sensibles
+            - **Audit Trail :** Logs complets de toutes les actions
+            - **RGPD :** Conformité totale pour les données personnelles
+            - **Backup :** Sauvegarde incrémentielle horaire
+            """)
+        
+        # 3. SPECIFICATIONS TECHNIQUES
+        with st.expander("3. SPECIFICATIONS TECHNIQUES", expanded=False):
+            col_tech1, col_tech2, col_tech3 = st.columns(3)
+            
+            with col_tech1:
+                st.markdown("""
+                #### 3.1 Stack Technologique
+                
+                **Backend :**
+                - Python 3.11+
+                - FastAPI / Streamlit
+                - SQLAlchemy 2.0
+                - Pandas / NumPy
+                
+                **Base de Données :**
+                - PostgreSQL 15 (Production)
+                - Redis pour le caching
+                - Elasticsearch pour la recherche
+                
+                **Infrastructure :**
+                - Docker & Kubernetes
+                - AWS/GCP Cloud
+                - GitHub Actions CI/CD
+                """)
+            
+            with col_tech2:
+                st.markdown("""
+                #### 3.2 Architecture Data
+                
+                **Current State :**
+                - 15 tables relationnelles
+                - 10+ relations complexes
+                - Contraintes métier intégrées
+                - Historisation native
+                
+                **Future State :**
+                - Data Lake S3
+                - Data Warehouse Redshift
+                - Stream Processing (Kafka)
+                - ML Feature Store
+                """)
+            
+            with col_tech3:
+                st.markdown("""
+                #### 3.3 Performances Cibles
+                
+                **Temps Réponse :**
+                - API : < 100ms (p95)
+                - Queries : < 500ms
+                - Export : < 2s
+                
+                **Disponibilité :**
+                - SLA : 99.9%
+                - RTO : 15 minutes
+                - RPO : 5 minutes
+                
+                **Scalabilité :**
+                - 1000+ requêtes/minute
+                - 50 utilisateurs concurrents
+                - 1TB+ de données
+                """)
+            
+            st.markdown("""
+            #### 3.4 Intégrations Systèmes
+            
+            | Système | Type | Fréquence | Sécurité |
+            |---------|------|-----------|----------|
+            | Riot Games API | REST API | Temps réel | OAuth 2.0 |
+            | Tools of Legends | Scraping | Quotidien | API Key |
+            | Google Workspace | SSO | Continu | SAML 2.0 |
+            | ERP Interne | API Custom | Horaire | VPN + MTLS |
+            """)
+        
+        # 4. ROADMAP DE DEVELOPPEMENT
+        with st.expander("4. ROADMAP DE DEVELOPPEMENT", expanded=False):
+            st.markdown("""
+            #### 4.1 Phasage du Projet
+            """)
+            
+            # Timeline avancée
+            timeline_details = {
+                "Phase": [
+                    "PHASE ALPHA : Foundation", 
+                    "PHASE BETA : Analytics", 
+                    "PHASE GAMMA : Intelligence", 
+                    "PHASE DELTA : Scale"
+                ],
+                "Période": [
+                    "Jan 2024 - Mar 2024", 
+                    "Avr 2024 - Juin 2024", 
+                    "Juil 2024 - Sep 2024", 
+                    "Oct 2024 - Déc 2024"
+                ],
+                "Budget": [
+                    "150K €", 
+                    "200K €", 
+                    "250K €", 
+                    "300K €"
+                ],
+                "Équipe": [
+                    "3 Devs + 1 DS", 
+                    "5 Devs + 2 DS", 
+                    "6 Devs + 3 DS", 
+                    "8 Devs + 4 DS"
+                ],
+                "Statut": [
+                    "COMPLETED", 
+                    "IN PROGRESS", 
+                    "PLANNED", 
+                    "FUTURE"
+                ]
+            }
+            
+            st.dataframe(pd.DataFrame(timeline_details), use_container_width=True)
+            
+            st.markdown("""
+            #### 4.2 Livrables Principaux
+            
+            **Q1 2024 - MVP Interne :**
+            - Base de données complète avec données historiques
+            - Interface d'administration Streamlit
+            - Système d'authentification et permissions
+            - API REST de base
+            
+            **Q2 2024 - Analytics Suite :**
+            - Dashboards interactifs personnalisables
+            - Module de reporting automatisé
+            - Visualisations avancées (heatmaps, timelines)
+            - Export multi-formats (PDF, Excel, JSON)
+            
+            **Q3 2024 - Intelligence Module :**
+            - Moteur de recommandations IA
+            - Modèles prédictifs de performance
+            - Analyse NLP des communications
+            - Système de feedback et apprentissage
+            
+            **Q4 2024 - Scale & Commercial :**
+            - Architecture microservices
+            - API publique documentée
+            - Portail client multi-organisation
+            - Application mobile companion
+            """)
+        
+        # 5. GOVERNANCE ET METRICS
+        with st.expander("5. GOVERNANCE ET METRICS", expanded=False):
+            col_gov1, col_gov2 = st.columns(2)
+            
+            with col_gov1:
+                st.markdown("""
+                #### 5.1 Comité de Pilotage
+                
+                **Fréquence :** Réunion bimensuelle
+                
+                **Participants :**
+                - Directeur Esport Karmine Corp
+                - Head Coach LEC
+                - Head of Data Science
+                - Lead Developer SensAI
+                - Représentant Joueurs
+                
+                **Décisions :**
+                - Priorisation des features
+                - Allocation budget
+                - Validation des livrables
+                - Stratégie produit
+                """)
+            
+            with col_gov2:
+                st.markdown("""
+                #### 5.2 KPIs de Performance
+                
+                **Techniques :**
+                - Uptime : 99.9%
+                - Latence API : < 100ms
+                - Erreurs : < 0.1%
+                - Backup Success : 100%
+                
+                **Business :**
+                - Adoption Rate : > 90%
+                - User Satisfaction : NPS > 50
+                - ROI Calculable : Mensuel
+                - Time Saved : > 30h/semaine
+                """)
+            
+            st.markdown("""
+            #### 5.3 Matrice RACI
+            
+            | Activité | Product Owner | Lead Dev | Data Scientist | Coach LEC |
+            |----------|---------------|----------|----------------|-----------|
+            | Définition Requirements | A | C | C | R |
+            | Développement Features | C | A | R | I |
+            | Validation Métier | R | I | I | A |
+            | Déploiement Production | C | A | I | I |
+            | Support Utilisateurs | A | R | C | C |
+            
+            **Légende :** R = Responsible, A = Accountable, C = Consulted, I = Informed
+            """)
+        
+        # 6. CONTRAINTES ET RISQUES
+        with st.expander("6. CONTRAINTES ET RISQUES", expanded=False):
+            col_risk1, col_risk2 = st.columns(2)
+            
+            with col_risk1:
+                st.markdown("""
+                #### 6.1 Contraintes Identifiées
+                
+                **Techniques :**
+                - Compatibilité avec les APIs Riot Games
+                - Performances temps réel exigées
+                - Sécurité données sensibles
+                - Intégration systèmes existants
+                
+                **Business :**
+                - Budget développement limité
+                - Délais compétition esport
+                - Confidentialité stratégique
+                - ROI mesurable exigé
+                
+                **Légales :**
+                - Conformité RGPD stricte
+                - Droits d'image joueurs
+                - Propriété intellectuelle
+                - Contrats partenariats
+                """)
+            
+            with col_risk2:
+                st.markdown("""
+                #### 6.2 Matrice des Risques
+                
+                | Risque | Probabilité | Impact | Mitigation |
+                |--------|-------------|--------|------------|
+                | Changement API Riot | Élevée | Critique | Abstraction layer + monitoring |
+                | Fuite données | Faible | Critique | Chiffrement + audit complet |
+                | Rejet utilisateurs | Moyenne | Élevé | Formation + support dédié |
+                | Dépassement budget | Moyenne | Élevé | Contrôle coûts mensuel |
+                | Concurrence solution | Faible | Moyen | Innovation continue + roadmap |
+                """)
+            
+            st.markdown("""
+            #### 6.3 Plan de Contingence
+            
+            **Scénario 1 : Échec déploiement majeur**
+            - Rollback automatique vers version stable
+            - Communication immédiate aux stakeholders
+            - Analyse post-mortem sous 24h
+            
+            **Scénario 2 : Perte de données**
+            - Restauration depuis backup le plus récent
+            - Reconstruction données manquantes
+            - Audit de sécurité complet
+            
+            **Scénario 3 : Non-adoption par les coaches**
+            - Programme de formation intensif
+            - Adaptation interface aux feedbacks
+            - Période de transition assistée
+            """)
+        
+        # 7. ANNEXES ET REFERENCES
+        with st.expander("7. ANNEXES ET REFERENCES", expanded=False):
+            tab_annex1, tab_annex2, tab_annex3, tab_annex4 = st.tabs([
+                "Glossaire", 
+                "Références Techniques", 
+                "Contacts", 
+                "Versions"
+            ])
+            
+            with tab_annex1:
+                st.markdown("""
+                #### Terminologie Spécialisée
+                
+                **KDA :** Ratio Kills/Deaths/Assists - Métrique fondamentale de performance individuelle
+                **LEC :** League of Legends EMEA Championship - Plus haut niveau compétitif européen
+                **LFL :** La Ligue Française - Division 1 française de League of Legends
+                **EUM :** European Masters - Tournoi continental regroupant les meilleures équipes régionales
+                **ROI :** Return On Investment - Mesure de rentabilité des investissements en coaching IA
+                **RBAC :** Role-Based Access Control - Système de permissions basé sur les rôles utilisateurs
+                **SLA :** Service Level Agreement - Contrat de niveau de service garantissant les performances
+                """)
+            
+            with tab_annex2:
+                st.markdown("""
+                #### Documentation Technique Référente
+                
+                **APIs Officielles :**
+                - Riot Games Developer Portal : https://developer.riotgames.com/
+                - Data Dragon API Documentation
+                - Match v5 Endpoint Specifications
+                
+                **Standards de Sécurité :**
+                - RGPD Règlement Général sur la Protection des Données
+                - OWASP Top 10 Security Risks
+                - ISO 27001 Information Security Management
+                
+                **Benchmarks Performance :**
+                - League of Legends Esports Stats Center
+                - Oracle's Elixir Database
+                - Games of Legends Historical Data
+                """)
+            
+            with tab_annex3:
+                st.markdown("""
+                #### Équipe Projet SensAI
+                
+                **Direction Produit :**
+                - Product Owner : [NOM PO]
+                - Scrum Master : [NOM SM]
+                
+                **Développement Technique :**
+                - Lead Developer : [VOTRE NOM]
+                - Backend Engineer : [NOM BE]
+                - Frontend Engineer : [NOM FE]
+                - DevOps Engineer : [NOM DEVOPS]
+                
+                **Data Science :**
+                - Head of Data Science : [NOM DS]
+                - Machine Learning Engineer : [NOM MLE]
+                - Data Analyst : [NOM DA]
+                
+                **Sponsors Métier :**
+                - Directeur Esport Karmine Corp : Kameto
+                - Head Coach LEC : Reha
+                - Performance Analyst : [NOM ANALYST]
+                """)
+            
+            with tab_annex4:
+                st.markdown("""
+                #### Historique des Versions
+                
+                **Version 1.0 - Janvier 2024**
+                - MVP : Base de données + interface admin
+                - Scope : Données historiques Karmine Corp 2023
+                - Équipe : 2 développeurs, 1 data scientist
+                
+                **Version 1.5 - Mars 2024**
+                - Analytics : Dashboards de base
+                - Features : Requêtes SQL, exports simples
+                - Amélioration : Performance ×3 sur les requêtes
+                
+                **Version 2.0 - Mai 2024**
+                - Intelligence : Premiers modèles IA
+                - Integration : Riot Games API temps réel
+                - Sécurité : RBAC complet + audit logs
+                
+                **Version 3.0 - Juillet 2024 (actuelle)**
+                - Scale : Architecture microservices
+                - Commercial : Multi-organisation support
+                - Mobile : Application companion iOS/Android
+                """)
+        
+        # Footer avec actions
+        st.markdown("---")
+        
+        col_footer1, col_footer2, col_footer3, col_footer4 = st.columns(4)
+        
+        with col_footer1:
+            if st.button("GENERER PDF", type="primary"):
+                st.info("Génération du document PDF en cours...")
+        
+        with col_footer2:
+            if st.button("EXPORT DONNEES"):
+                st.info("Export des données du CDC en JSON")
+        
+        with col_footer3:
+            if st.button("PARTAGER DOCUMENT"):
+                st.info("Options de partage disponibles")
+        
+        with col_footer4:
+            if st.button("METTRE A JOUR"):
+                st.success("Cahier des charges synchronisé")
+        
+        # Watermark
+        st.markdown("""
+        <div style='
+            text-align: center;
+            color: #666;
+            font-size: 0.8em;
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        '>
+        <strong>SENSAI TECHNOLOGIES</strong> - Propriété intellectuelle protégée - Document confidentiel<br>
+        © 2024 SensAI - Tous droits réservés - Version 3.0
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.markdown(
-            """
-            #### Objectif général
-
-            Modéliser et exploiter les données d’une structure esports (Karmine Corp & académies)
-            pour :
-            - suivre les effectifs (joueurs, staff),
-            - analyser les performances (matchs, statistiques),
-            - tracer les recommandations IA et leurs impacts,
-            - assurer la gouvernance des données (intégrité, historisation, contraintes métier).
-            """
-        )
-
-        with st.expander("Périmètre fonctionnel", expanded=True):
-            st.markdown(
-                """
-                - Gestion des référentiels : ligues, saisons, équipes.
-                - Gestion des effectifs joueurs (profil, rôle, nationalité, historique d'affectation).
-                - Gestion du staff (coach, analyste, manager, etc.) et de leurs affectations.
-                - Gestion des contrats (joueurs ou staff) avec montants mensuels et statut.
-                - Suivi des matchs : ligue, saison, équipes (bleue/rouge), vainqueur.
-                - Suivi des statistiques individuelles par match (kills, deaths, assists).
-                - Sous-système IA :
-                    - Modèles IA (*coach_ia*),
-                    - Recommandations générées,
-                    - Interactions du staff (validation / refus / ignorance).
-                """
-            )
-
-        with st.expander("Contraintes d’intégrité clés", expanded=False):
-            st.markdown(
-                """
-                - Une équipe participe à une saison via `participation_equipe_ligue` (PK composite).
-                - Historisation des affectations joueurs et staff (date_debut / date_fin).
-                - Contrainte XOR dans `contrat` (joueur OU staff, mais jamais les deux).
-                - Intégrité du match :
-                    - deux équipes distinctes (bleue/rouge),
-                    - vainqueur obligatoirement dans {équipe bleue, équipe rouge}.
-                - Liaison forte entre IA, recommandations, et interactions staff.
-                """
-            )
 
     # ================= TAB 7 : MODÈLE DE DONNÉES =================
     with tab_model:
